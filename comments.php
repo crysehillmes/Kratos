@@ -59,7 +59,7 @@ if ( !kratos_option('disqus_shortname')) {
 			var disq = new iDisqus('disqus-comment', {
 				forum: <?php echo '\''.kratos_option('disqus_shortname').'\'' ?>,
 				api: <?php echo '\''.kratos_option('disqus_custom_api').'\'' ?>,
-				mode: 2,
+				mode: 1,
 				timeout: 3000,
 				popular: document.getElementById('popular-posts'),
 				slug: location.pathname.slice(1).split('.')[0],
@@ -68,8 +68,5 @@ if ( !kratos_option('disqus_shortname')) {
 			disq.popular();
 			disq.count();
 		},false);
-		$(document).ready(function() {
-			
-		});
 	</script>
 <?php } ?>
