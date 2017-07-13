@@ -133,6 +133,17 @@ class kratos_widget_about extends WP_Widget {
                     <p><?php echo $profile; ?></p>
                 </div>
                 <?php }?>
+                <div class="social-icons">
+                    <p class="kratos-social-icons">
+						<?php echo (!kratos_option('social_weibo')) ? '' : '<a target="_blank" rel="nofollow" href="' . kratos_option('social_weibo') . '"><i class="fa fa-weibo"></i></a>'; ?>
+						<?php echo (!kratos_option('social_tweibo')) ? '' : '<a target="_blank" rel="nofollow" href="' . kratos_option('social_tweibo') . '"><i class="fa fa-tencent-weibo"></i></a>'; ?>
+						<?php echo (!kratos_option('social_twitter')) ? '' : '<a target="_blank" rel="nofollow" href="' . kratos_option('social_twitter') . '"><i class="fa fa-twitter"></i></a>'; ?>
+						<?php echo (!kratos_option('social_facebook')) ? '' : '<a target="_blank" rel="nofollow" href="' . kratos_option('social_facebook') . '"><i class="fa fa-facebook-official"></i></a>'; ?>
+						<?php echo (!kratos_option('social_linkedin')) ? '' : '<a target="_blank" rel="nofollow" href="' . kratos_option('social_linkedin') . '"><i class="fa fa-linkedin-square"></i></a>'; ?>
+						<?php echo (!kratos_option('social_github')) ? '' : '<a target="_blank" rel="nofollow" href="' . kratos_option('social_github') . '"><i class="fa fa-github"></i></a>'; ?>
+						<?php echo (!kratos_option('social_google-plus')) ? '' : '<a target="_blank" rel="nofollow" href="' . kratos_option('social_google-plus') . '"><i class="fa fa-google-plus"></i></a>'; ?>
+					</p>
+                </div>
         <?php
         echo $after_widget;
     }

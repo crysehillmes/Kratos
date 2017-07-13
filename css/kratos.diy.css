@@ -3,3 +3,12 @@ pre code {
     white-space: inherit;
     border: none;
 }
+
+.amadeus_about .textwidget {
+    margin: 10px 30px 10px 30px;
+}
+
+.amadeus_about .social-icons {
+    margin: 30px 30px 30px 30px;
+    text-align: center;
+}
