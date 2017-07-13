@@ -73,6 +73,16 @@ function optionsframework_options() {
 		'id' => 'donate_links',
 		'type' => 'text');
 	$options[] = array(
+		'name' => 'Disqus Shortname',
+		'desc' => '输入您的 Disqus shortname',
+		'id' => 'disqus_shortname',
+		'type' => 'text');
+	$options[] = array(
+		'name' => 'Disqus Custom API',
+		'desc' => '输入您的自定义 Disqus API 地址',
+		'id' => 'disqus_custom_api',
+		'type' => 'text');
+	$options[] = array(
 		'name' => '组件配置',
 		'type' => 'heading');
 	$options[] = array(

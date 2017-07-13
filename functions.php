@@ -84,6 +84,10 @@ function kratos_theme_scripts() {
         wp_enqueue_script( 'superfish', '//cdn.bootcss.com/superfish/1.7.9/js/superfish.min.js', array(), '1.0.0');
         wp_enqueue_script( 'kratos', $dir . '/js/kratos.js', array(),  KRATOS_VERSION);
         wp_enqueue_script( 'kratos-diy', $dir . '/js/kratos.diy.js', array(),  KRATOS_VERSION);
+        if (!empty(kratos_option('disqus_shortname'))) {
+            wp_enqueue_style( 'idisqus-style', $dir . '/css/iDisqus.min.css', array(), KRATOS_VERSION);
+            wp_enqueue_script( 'idisqus', $dir . '/js/iDisqus.min.js', array(),  KRATOS_VERSION);
+        }
     }  
 }  
 add_action('wp_enqueue_scripts', 'kratos_theme_scripts');

@@ -5,10 +5,10 @@
  * @package Vtrois
  * @version 2.1
  */
-
-if ( post_password_required() ) {
-	return;
-}
+if ( !kratos_option('disqus_shortname')) { 
+	if ( post_password_required() ) {
+		return;
+	}
 ?>
 <div id="comments" class="comments-area">
 	<?php if ( have_comments() ) : ?>
@@ -49,3 +49,19 @@ if ( post_password_required() ) {
 		comment_form($args);
 	?>
 </div>
+<?php } else { ?>
+	<div id="comment"></div>
+	<script>
+        var disq = new iDisqus('comment', {
+            forum: '<?php kratos_option('disqus_shortname') ?>',
+            api: '<?php kratos_option('disqus_custom_api') ?>',
+            mode: 2,
+            timeout: 3000,
+            popular: document.getElementById('popular-posts'),
+            slug: location.pathname.slice(1).split('.')[0],
+            init: true,
+        });
+        disq.popular();
+        disq.count();
+	</script>
+<?php } ?>
