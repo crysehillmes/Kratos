@@ -56,8 +56,8 @@ if ( !kratos_option('disqus_shortname')) {
 	<script>
 		$(document).ready(function() {
 			var disq = new iDisqus('disqus-comment', {
-				forum: <?php '\''.kratos_option('disqus_shortname').'\'' ?>,
-				api: <?php '\''.kratos_option('disqus_custom_api').'\'' ?>,
+				forum: <?php echo '\''.kratos_option('disqus_shortname').'\'' ?>,
+				api: <?php echo '\''.kratos_option('disqus_custom_api').'\'' ?>,
 				mode: 2,
 				timeout: 3000,
 				popular: document.getElementById('popular-posts'),
