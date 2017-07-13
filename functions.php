@@ -1127,3 +1127,8 @@ function kratos_admin_footer_text($text) {
 }
 
 add_filter('admin_footer_text', 'kratos_admin_footer_text');
+
+function remove_devicepx() {
+    wp_dequeue_script( 'devicepx' );
+}
+add_action( 'wp_enqueue_scripts', 'remove_devicepx' );
