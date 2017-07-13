@@ -1,1 +1,5 @@
 /* Kratos CSS Plus */
+pre code {
+    white-space: inherit;
+    border: none;
+}
