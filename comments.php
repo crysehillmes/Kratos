@@ -50,18 +50,22 @@ if ( !kratos_option('disqus_shortname')) {
 	?>
 </div>
 <?php } else { ?>
-	<div id="comment"></div>
+	<div id="comments" class="comments-area">
+		<div id="disqus-comment"></div>
+	</div>
 	<script>
-        var disq = new iDisqus('comment', {
-            forum: '<?php kratos_option('disqus_shortname') ?>',
-            api: '<?php kratos_option('disqus_custom_api') ?>',
-            mode: 2,
-            timeout: 3000,
-            popular: document.getElementById('popular-posts'),
-            slug: location.pathname.slice(1).split('.')[0],
-            init: true,
-        });
-        disq.popular();
-        disq.count();
+		$(document).ready(function() {
+			var disq = new iDisqus('disqus-comment', {
+				forum: <?php '\''.kratos_option('disqus_shortname').'\'' ?>,
+				api: <?php '\''.kratos_option('disqus_custom_api').'\'' ?>,
+				mode: 2,
+				timeout: 3000,
+				popular: document.getElementById('popular-posts'),
+				slug: location.pathname.slice(1).split('.')[0],
+				init: true,
+			});
+			disq.popular();
+			disq.count();
+		});
 	</script>
 <?php } ?>
