@@ -51,10 +51,11 @@ if ( !kratos_option('disqus_shortname')) {
 </div>
 <?php } else { ?>
 	<div id="comments" class="comments-area">
-		<div id="disqus-comment"></div>
+		<div id="disqus-comment" class="comments-disqus"></div>
 	</div>
 	<script>
-		$(document).ready(function() {
+		window.addEventListener("load", function load(event){
+			window.removeEventListener("load", load, false); //remove listener, no longer needed
 			var disq = new iDisqus('disqus-comment', {
 				forum: <?php echo '\''.kratos_option('disqus_shortname').'\'' ?>,
 				api: <?php echo '\''.kratos_option('disqus_custom_api').'\'' ?>,
@@ -66,6 +67,9 @@ if ( !kratos_option('disqus_shortname')) {
 			});
 			disq.popular();
 			disq.count();
+		},false);
+		$(document).ready(function() {
+			
 		});
 	</script>
 <?php } ?>
