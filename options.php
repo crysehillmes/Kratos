@@ -502,6 +502,12 @@ function optionsframework_options() {
 		'std' => '',
 		'type' => 'text');
 	$options[] = array(
+		'name' => 'Google+',
+		'desc' => '连接前要带有 http:// 或者 https:// ',
+		'id' => 'social_google-plus',
+		'std' => '',
+		'type' => 'text');
+	$options[] = array(
 		'name' => '广告配置',
 		'type' => 'heading');
 	$options[] = array(
