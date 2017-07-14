@@ -130,7 +130,7 @@ class kratos_widget_about extends WP_Widget {
                 <?php }?>
                 <?php if(!empty($profile)) {?>
                 <div class="textwidget">
-                    <p><?php echo $profile; ?></p>
+                    <p class="text-center"><?php echo $profile; ?></p>
                 </div>
                 <?php }?>
                 <div class="social-icons">
