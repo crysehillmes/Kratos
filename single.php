@@ -29,10 +29,10 @@ get_header('banner'); ?>
 							<h1 class="kratos-entry-title text-center"><?php the_title(); ?></h1>
 							<div class="kratos-post-meta text-center">
 								<span>
-								<i class="fa fa-calendar"></i> <?php the_time('Y-m-d') ?>
-				                <i class="fa fa-commenting-o"></i> <?php echo kratos_comments_users($post->ID); ?> Comments
-				                <i class="fa fa-eye"></i> <?php echo kratos_get_post_views();?> Views
-				                <i class="fa fa-thumbs-o-up"></i> <?php if( get_post_meta($post->ID,'love',true) ){ echo get_post_meta($post->ID,'love',true); } else { echo '0'; }?> Times
+								<i class="fa fa-calendar"></i> <?php echo get_the_date(); ?>
+				                <i class="fa fa-commenting-o"></i> <?php comments_number('0', '1', '%'); ?>条评论
+				                <i class="fa fa-eye"></i> <?php echo kratos_get_post_views();?>次阅读
+				                <i class="fa fa-thumbs-o-up"></i> <?php if( get_post_meta($post->ID,'love',true) ){ echo get_post_meta($post->ID,'love',true); } else { echo '0'; }?>人点赞
 								</span>
 							</div>
 						</header>
@@ -53,67 +53,7 @@ get_header('banner'); ?>
 				   			<a href="javascript:;" id="btn" data-action="love" data-id="<?php the_ID(); ?>" class="Love <?php if(isset($_COOKIE['love_'.$post->ID])) echo 'done';?>" ><i class="fa fa-thumbs-o-up"></i> 点赞</a>
 							<?php if ( kratos_option( 'post_share' )==1 ) : ?>
 							<a href="javascript:;"  class="Share" ><i class="fa fa-share-alt"></i> 分享</a>
-							<div class="share-wrap" style="display: none;">
-								<div class="share-group">
-									<a href="javascript:;" class="share-plain twitter" onclick="share('qq');" rel="nofollow">
-										<div class="icon-wrap">
-											<i class="fa fa-qq"></i>
-										</div>
-									</a>
-									<a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
-										<div class="icon-wrap">
-											<i class="fa fa-weibo"></i>
-										</div>
-									</a>
-									<a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
-										<div class="icon-wrap">
-											<i class="fa fa-facebook"></i>
-										</div>
-									</a>
-									<a href="javascript:;" class="share-plain googleplus style-plain" onclick="share('googleplus');" rel="nofollow">
-										<div class="icon-wrap">
-											<i class="fa fa-google-plus"></i>
-										</div>
-									</a>
-									<a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
-										<div class="icon-wrap">
-											<i class="fa fa-weixin"></i>
-										</div>
-										<div class="share-int">
-											<div class="qrcode" data-url="<?php the_permalink() ?>"></div>
-											<p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
-										</div>
-									</a>
-								</div>
-								<script type="text/javascript">
-								function share(obj){
-									var qqShareURL="http://connect.qq.com/widget/shareqq/index.html?";
-									var weiboShareURL="http://service.weibo.com/share/share.php?";
-									var facebookShareURL="https://www.facebook.com/sharer/sharer.php?";
-									var twitterShareURL="https://twitter.com/intent/tweet?";
-									var googleplusShareURL="https://plus.google.com/share?";
-									var host_url="<?php the_permalink(); ?>";
-									var title="【<?php the_title(); ?>】";
-									var qqtitle="<?php the_title(); ?>";
-									var excerpt="<?php echo get_the_excerpt(); ?>";
-									var pic="<?php echo share_post_image(); ?>";
-									var appkey="<?php echo kratos_option('sina_appkey'); ?>";
-									var _URL;
-									if(obj=="qq"){
-										_URL=qqShareURL+"url="+host_url+"&title="+qqtitle+"&pics="+pic+"&desc=&summary="+excerpt+"&site=vtrois";
-									}else if(obj=="weibo"){
-										_URL=weiboShareURL+"url="+host_url+"&appkey="+appkey+"&title="+title+excerpt+"&pic="+pic;
-									}else if(obj=="facebook"){
-								 		_URL=facebookShareURL+"u="+host_url;
-									}else if(obj=="twitter"){
-								 		_URL=twitterShareURL+"text="+title+excerpt+"&url="+host_url;
-									}else if(obj=="googleplus"){
-								 		_URL=googleplusShareURL+"url="+host_url;
-									}
-									window.open(_URL);
-								}
-								</script>
-							</div>
+								<?php require_once( get_template_directory() . '/inc/share.php'); ?>
 							<?php endif; ?>
 				    		</div>
 							<div class="footer-tag clearfix">

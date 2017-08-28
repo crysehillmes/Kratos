@@ -6,7 +6,7 @@
  * @version 2.5
  */
 
-define( 'KRATOS_VERSION', '2.5.3' );
+define( 'KRATOS_VERSION', '2.5' );
 
 require_once( get_template_directory() . '/inc/widgets.php');
 
@@ -16,7 +16,7 @@ require_once( get_template_directory() . '/inc/widgets.php');
 require_once( get_template_directory() . '/inc/version.php' );
 $kratos_update_checker = new ThemeUpdateChecker(
     'Kratos', 
-    'https://mirrors.vtrois.com/themes/kratos/upgrade.json'
+    'https://raw.githubusercontent.com/Vtrois/Kratos/master/inc/upgrade.json'
 );
 
 /**
@@ -54,33 +54,23 @@ add_filter('the_content', 'my_formatter', 99);
  */  
 function kratos_theme_scripts() {  
     $dir = get_template_directory_uri(); 
-    if ( !is_admin() ) {  
-        // wp_enqueue_style( 'animate-style', $dir . '/css/animate.min.css', array(), '3.5.1'); 
-        wp_enqueue_style( 'animate-style', '//cdn.bootcss.com/animate.css/3.5.1/animate.min.css', array(), '3.5.1'); 
-        // wp_enqueue_style( 'awesome-style', $dir . '/css/font-awesome.min.css', array(), '4.7.0');
+    if ( !is_admin() ) {
+        wp_enqueue_style( 'animate-style', '//cdn.bootcss.com/animate.css/3.5.1/animate.min.css', array(), '3.5.1');
         wp_enqueue_style( 'awesome-style', '//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0');
-        // wp_enqueue_style( 'bootstrap-style', $dir . '/css/bootstrap.min.css', array(), '3.3.7');
         wp_enqueue_style( 'bootstrap-style', '//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css', array(), '3.3.7');
-        // wp_enqueue_style( 'superfish-style', $dir . '/css/superfish.min.css', array(), 'r7');
         wp_enqueue_style( 'superfish-style', '//cdn.bootcss.com/superfish/1.7.9/css/superfish.min.css', array(), 'r7');
+        wp_enqueue_style( 'layer', $dir . '/css/layer.min.css', array(), KRATOS_VERSION);
         wp_enqueue_style( 'kratos-style', get_stylesheet_uri(), array(), KRATOS_VERSION);
         wp_enqueue_style( 'kratos-diy-style', $dir . '/css/kratos.diy.css', array(), KRATOS_VERSION);
-        // wp_enqueue_script( 'jquerys', $dir . '/js/jquery.min.js' , array(), '2.1.4');
         wp_enqueue_script( 'jquerys', '//cdn.bootcss.com/jquery/2.1.4/jquery.min.js' , array(), '2.1.4');
-        // wp_enqueue_script( 'easing', $dir . '/js/jquery.easing.min.js', array(), '1.3.0'); 
-        wp_enqueue_script( 'easing', '//cdn.bootcss.com/jquery-easing/1.3/jquery.easing.min.js', array(), '1.3.0'); 
-        // wp_enqueue_script( 'qrcode', $dir . '/js/jquery.qrcode.min.js', array(), KRATOS_VERSION);
+        wp_enqueue_script( 'easing', '//cdn.bootcss.com/jquery-easing/1.3/jquery.easing.min.js', array(), '1.3.0');
         wp_enqueue_script( 'qrcode', '//cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js', array(), KRATOS_VERSION);
+        wp_enqueue_script( 'layer', $dir . '//cdn.bootcss.com/layer/3.0.3/layer.min.js', array(), '3.0.3');
         wp_enqueue_script( 'modernizr', '//cdn.bootcss.com/modernizr/2.6.2/modernizr.min.js' , array(), '2.6.2');
-        // wp_enqueue_script( 'bootstrap', $dir . '/js/bootstrap.min.js', array(), '3.3.7');
         wp_enqueue_script( 'bootstrap', '//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js', array(), '3.3.7');
-        // wp_enqueue_script( 'waypoints', $dir . '/js/jquery.waypoints.min.js', array(), '4.0.0');
         wp_enqueue_script( 'waypoints', '//cdn.bootcss.com/waypoints/4.0.1/jquery.waypoints.min.js', array(), '4.0.0');
-        // wp_enqueue_script( 'stellar', $dir . '/js/jquery.stellar.min.js', array(), '0.6.2');
         wp_enqueue_script( 'stellar', '//cdn.bootcss.com/stellar.js/0.6.2/jquery.stellar.min.js', array(), '0.6.2');
-        // wp_enqueue_script( 'hoverIntents', $dir . '/js/hoverIntent.min.js', array(), 'r7');
         wp_enqueue_script( 'hoverIntents', '//cdn.bootcss.com/jquery.hoverintent/1.8.1/jquery.hoverIntent.min.js', array(), 'r7');
-        // wp_enqueue_script( 'superfish', $dir . '/js/superfish.js', array(), '1.0.0');
         wp_enqueue_script( 'superfish', '//cdn.bootcss.com/superfish/1.7.9/js/superfish.min.js', array(), '1.0.0');
         wp_enqueue_script( 'kratos', $dir . '/js/kratos.js', array(),  KRATOS_VERSION);
         wp_enqueue_script( 'kratos-diy', $dir . '/js/kratos.diy.js', array(),  KRATOS_VERSION);
@@ -110,6 +100,11 @@ remove_action( 'wp_head', 'rel_canonical' );
 remove_action( 'wp_footer', 'wp_print_footer_scripts' );   
 remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );   
 remove_action( 'template_redirect', 'wp_shortlink_header', 11, 0 ); 
+
+add_action( 'wp_enqueue_scripts', 'mt_enqueue_scripts', 1 );
+function mt_enqueue_scripts() {
+  wp_deregister_script('jquery');
+}
 
 function disable_emojis() {
     global $wp_version;
@@ -179,6 +174,28 @@ add_filter( 'the_content', 'wpautop' , 12);
 add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 
 /**
+ * Auto post link
+ */  
+function kratos_auto_post_link($content) {
+  global $post;
+  $content = preg_replace('/<\s*img\s+[^>]*?src\s*=\s*(\'|\")(.*?)\\1[^>]*?\/?\s*>/i', "<img layer-src=\"$2\" src=\"$2\" alt=\"《".$post->post_title."》\" />", $content);
+  return $content;
+  }
+add_filter ('the_content', 'kratos_auto_post_link',0);
+
+/**
+ * Init theme
+ */
+add_action( 'load-themes.php', 'Init_theme' );
+function Init_theme(){
+  global $pagenow;
+  if ( 'themes.php' == $pagenow && isset( $_GET['activated'] ) ) {
+    wp_redirect( admin_url( 'themes.php?page=kratos' ) );
+    exit;
+  }
+}
+
+/**
  * Remove the excess CSS selectors
  */
 add_filter('nav_menu_css_class', 'my_css_attributes_filter', 100, 1);
@@ -224,7 +241,7 @@ function danger($atts, $content=null, $code="") {
 add_shortcode('danger' , 'danger' );
 
 function wymusic($atts, $content=null, $code="") {
-    $return = '<iframe class="" style="width:100%" frameborder="no" border="0" marginwidth="0" marginheight="0" height=86 src="http://music.163.com/outchain/player?type=2&id=';
+    $return = '<iframe class="" style="width:100%" frameborder="no" border="0" marginwidth="0" marginheight="0" height=86 src="//music.163.com/outchain/player?type=2&id=';
     $return .= $content;
     $return .= '&auto='. kratos_option('wy_music') .'&height=66"></iframe>';
     return $return;
@@ -344,7 +361,7 @@ add_shortcode('tudou' , 'tudou' );
 
 function vqq($atts, $content=null, $code="") {
     extract(shortcode_atts(array("auto"=>'0'),$atts));
-    $return = '<div class="video-container"><iframe frameborder="0" width="640" height="498" src="http://v.qq.com/iframe/player.html?vid=';
+    $return = '<div class="video-container"><iframe frameborder="0" width="640" height="498" src="//v.qq.com/iframe/player.html?vid=';
     $return .= $content;
     $return .= '&tiny=0&auto=';
     $return .= $auto;
@@ -992,28 +1009,6 @@ return $o;
 }
 
 /**
- * The article reviews quantity statistics
- */
-function kratos_comments_users($postid=0,$which=0) {
-    $comments = get_comments('status=approve&type=comment&post_id='.$postid);
-    if ($comments) {
-        $i=0; $j=0; $commentusers=array();
-        foreach ($comments as $comment) {
-            ++$i;
-            if ($i==1) { $commentusers[] = $comment->comment_author_email; ++$j; }
-            if ( !in_array($comment->comment_author_email, $commentusers) ) {
-                $commentusers[] = $comment->comment_author_email;
-                ++$j;
-            }
-        }
-        $output = array($j,$i);
-        $which = ($which == 0) ? 0 : 1;
-        return $output[$which]; 
-    }
-    return 0; 
-}
-
-/**
  * Comments on the face
  */
 add_filter('smilies_src','custom_smilies_src',1,10);
@@ -1028,27 +1023,31 @@ function smilies_reset() {
     if ( !get_option( 'use_smilies' ) || $wp_version < 4.2)
         return;
     $wpsmiliestrans = array(
-    ':mrgreen:' => 'icon_mrgreen.png',
-    ':exclaim:' => 'icon_exclaim.png',
-    ':neutral:' => 'icon_neutral.png',
-    ':twisted:' => 'icon_twisted.png',
-      ':arrow:' => 'icon_arrow.png',
-        ':eek:' => 'icon_eek.png',
-      ':smile:' => 'icon_smile.png',
-   ':confused:' => 'icon_confused.png',
-       ':cool:' => 'icon_cool.png',
-       ':evil:' => 'icon_evil.png',
-    ':biggrin:' => 'icon_biggrin.png',
-       ':idea:' => 'icon_idea.png',
-    ':redface:' => 'icon_redface.png',
-       ':razz:' => 'icon_razz.png',
-   ':rolleyes:' => 'icon_rolleyes.png',
-       ':wink:' => 'icon_wink.png',
-        ':cry:' => 'icon_cry.png',
-  ':surprised:' => 'icon_surprised.png',
-        ':lol:' => 'icon_lol.png',
-        ':mad:' => 'icon_mad.png',
-        ':sad:' => 'icon_sad.png',
+    ':mrgreen:' => 'mrgreen.png',
+    ':exclaim:' => 'exclaim.png',
+    ':neutral:' => 'neutral.png',
+    ':twisted:' => 'twisted.png',
+      ':arrow:' => 'arrow.png',
+        ':eek:' => 'eek.png',
+      ':smile:' => 'smile.png',
+   ':confused:' => 'confused.png',
+       ':cool:' => 'cool.png',
+       ':evil:' => 'evil.png',
+    ':biggrin:' => 'biggrin.png',
+       ':idea:' => 'idea.png',
+    ':redface:' => 'redface.png',
+       ':razz:' => 'razz.png',
+   ':rolleyes:' => 'rolleyes.png',
+       ':wink:' => 'wink.png',
+        ':cry:' => 'cry.png',
+  ':surprised:' => 'surprised.png',
+        ':lol:' => 'lol.png',
+        ':mad:' => 'mad.png',
+   ':drooling:' => 'drooling.png',
+     ':cowboy:' => 'cowboy.png',
+':persevering:' => 'persevering.png',
+    ':symbols:' => 'symbols.png',
+       ':shit:' => 'shit.png',
     );
 }
 smilies_reset();
@@ -1112,7 +1111,7 @@ function Kratos_admin_notice() {
         }
     </style>
     <div class="notice notice-info">
-    <p class="about-description">嗨，欢迎使用 Kratos 主题开始创作，在正式使用前建议您参阅<a target="view_window" href="https://www.vtrois.com/kratos-faq.html">《主题使用说明》</a>与<a target="view_window" href="https://www.vtrois.com/kratos-article-style.html">《文章样式说明》</a>，同时欢迎您加入主题交流群：<a target="_blank" rel="nofollow" href="http://shang.qq.com/wpa/qunwpa?idkey=182bd07a135c085c88ab7e3de38f2b2d9a86983292355a4708926b99dcd5b89f">51880737</a></p>
+    <p class="about-description">嗨，欢迎使用 Kratos 主题开始创作，同时欢迎您加入主题交流群：<a target="_blank" rel="nofollow" href="http://shang.qq.com/wpa/qunwpa?idkey=182bd07a135c085c88ab7e3de38f2b2d9a86983292355a4708926b99dcd5b89f">51880737</a></p>
     </div>
     <?php
 }
@@ -1122,7 +1121,7 @@ add_action( 'welcome_panel', 'Kratos_admin_notice' );
  * Admin footer text
  */
 function kratos_admin_footer_text($text) {
-       $text = '<span id="footer-thankyou">感谢使用 <a href=http://cn.wordpress.org/ target="_blank">WordPress</a>进行创作，并使用 <a href="https://www.vtrois.com/theme-kratos.html" target="_blank">Kratos</a>主题样式，<a target="_blank" rel="nofollow" href="http://shang.qq.com/wpa/qunwpa?idkey=182bd07a135c085c88ab7e3de38f2b2d9a86983292355a4708926b99dcd5b89f">点击</a> 加入主题讨论群。</span>';
+       $text = '<span id="footer-thankyou">感谢使用 <a href=http://cn.wordpress.org/ target="_blank">WordPress</a>进行创作，<a target="_blank" rel="nofollow" href="http://shang.qq.com/wpa/qunwpa?idkey=182bd07a135c085c88ab7e3de38f2b2d9a86983292355a4708926b99dcd5b89f">点击</a> 加入主题讨论群。</span>';
     return $text;
 }
 
