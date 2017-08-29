@@ -65,7 +65,7 @@ function kratos_theme_scripts() {
         wp_enqueue_script( 'jquerys', '//cdn.bootcss.com/jquery/2.1.4/jquery.min.js' , array(), '2.1.4');
         wp_enqueue_script( 'easing', '//cdn.bootcss.com/jquery-easing/1.3/jquery.easing.min.js', array(), '1.3.0');
         wp_enqueue_script( 'qrcode', '//cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js', array(), KRATOS_VERSION);
-        wp_enqueue_script( 'layer', $dir . '//cdn.bootcss.com/layer/3.0.3/layer.min.js', array(), '3.0.3');
+        wp_enqueue_script( 'layer', '//cdn.bootcss.com/layer/3.0.3/layer.min.js', array(), '3.0.3');
         wp_enqueue_script( 'modernizr', '//cdn.bootcss.com/modernizr/2.6.2/modernizr.min.js' , array(), '2.6.2');
         wp_enqueue_script( 'bootstrap', '//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js', array(), '3.3.7');
         wp_enqueue_script( 'waypoints', '//cdn.bootcss.com/waypoints/4.0.1/jquery.waypoints.min.js', array(), '4.0.0');
