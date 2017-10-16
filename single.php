@@ -8,7 +8,6 @@
 
 $sidebar = kratos_option('side_bar');
 $sidebar = (empty($sidebar)) ? 'right_side' : $sidebar;
-$ad = kratos_option('ad_show');
 get_header();
 get_header('banner'); ?>
 <div id="kratos-blog-post" style="background:<?php echo kratos_option('background_index_color'); ?>">
@@ -37,21 +36,21 @@ get_header('banner'); ?>
 							</div>
 						</header>
 						<div class="kratos-post-content">
-						<?php if ($ad['top']==1): ?>
-	                    <img src="<?php echo kratos_option('ad_img')?>">
+						<?php if ( kratos_option('ad_show_1') ): ?>
+							<a href="<?php echo kratos_option('ad_link_1'); ?>"><img src="<?php echo kratos_option('ad_img_1')?>"></a>
 	                    <?php endif ?>
                         <?php the_content(); ?>
-                        <?php if ($ad['footer']==1): ?>
-	                    <img src="<?php echo kratos_option('ad_img')?>">
+						<?php if ( kratos_option('ad_show_2') ): ?>
+							<a href="<?php echo kratos_option('ad_link_2'); ?>"><img src="<?php echo kratos_option('ad_img_2')?>"></a>
 	                    <?php endif ?>
 						</div>
 						<footer class="kratos-entry-footer clearfix">
 							<div class="post-like-donate text-center clearfix" id="post-like-donate">
-							<?php if ( kratos_option( 'post_like_donate' )==1 ) : ?>
+							<?php if ( kratos_option( 'post_like_donate' ) ) : ?>
 				   			<a href="<?php echo kratos_option('donate_links'); ?>" class="Donate"><i class="fa fa-bitcoin"></i> 打赏</a>
 				   			<?php endif; ?>
 				   			<a href="javascript:;" id="btn" data-action="love" data-id="<?php the_ID(); ?>" class="Love <?php if(isset($_COOKIE['love_'.$post->ID])) echo 'done';?>" ><i class="fa fa-thumbs-o-up"></i> 点赞</a>
-							<?php if ( kratos_option( 'post_share' )==1 ) : ?>
+							<?php if ( kratos_option( 'post_share' ) ) : ?>
 							<a href="javascript:;"  class="Share" ><i class="fa fa-share-alt"></i> 分享</a>
 								<?php require_once( get_template_directory() . '/inc/share.php'); ?>
 							<?php endif; ?>
